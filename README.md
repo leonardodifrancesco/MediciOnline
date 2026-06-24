@@ -17,9 +17,20 @@ Supabase (browser/server/middleware), tipi del database, middleware RBAC.
 reset password, callback email, dashboard segnaposto per le tre aree
 (paziente / medico / admin) con guardia di ruolo e dati reali dal database.
 
-⬜ **Fase 3 — Ricerca medici e profilo pubblico** (`/medici`, `/medici/[slug]`)
-⬜ **Fase 4 — Motore di disponibilità** (regole settimanali + eccezioni)
-⬜ **Fase 5 — Prenotazione e integrazione Stripe** (Checkout + Connect + webhook)
+✅ **Fase 3 — Ricerca medici e profilo pubblico**: pagina `/medici` con filtri
+(specializzazione, modalità, città, tariffa), paginazione; profilo pubblico
+`/medici/[slug]` con bio, specializzazioni, tariffa, rating, recensioni; CTA
+"Prenota una visita".
+
+✅ **Fase 4 — Motore di disponibilità**: pagina `/area-medico/disponibilita`
+per gestire regole settimanali ricorrenti e eccezioni (ferie, aperture extra);
+algoritmo di calcolo slot liberi (regole − eccezioni − appuntamenti occupati);
+Server Actions con validazione Zod.
+
+✅ **Fase 5 — Prenotazione e integrazione Stripe**: wizard 3-step (slot → motivo →
+riepilogo), creazione appuntamento, Stripe Checkout Session, webhook per sincronizzare
+pagamenti e stato appuntamenti, pagina di conferma.
+
 ⬜ **Fase 6 — Dashboard paziente/medico complete** (storico, gestione appuntamenti)
 ⬜ **Fase 7 — Pannello admin completo** (verifica medici, statistiche, audit log)
 

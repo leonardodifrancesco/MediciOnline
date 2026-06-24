@@ -42,7 +42,7 @@ function slugify(text: string) {
  * suo ruolo. La validazione Zod è ripetuta lato server anche se il form
  * la esegue già lato client: il client non è una fonte fidata.
  */
-export async function signInAction(input: LoginInput): Promise<AuthActionResult> {
+export async function signInAction(input: LoginInput, redirectTo?: string): Promise<AuthActionResult> {
   const parsed = loginSchema.safeParse(input);
   if (!parsed.success) {
     return { success: false, message: "Controlla email e password e riprova." };
@@ -65,7 +65,10 @@ export async function signInAction(input: LoginInput): Promise<AuthActionResult>
     .single();
 
   const role = (profile?.role ?? "patient") as UserRole;
-  redirect(ROLE_HOME[role]);
+  
+  // Se è stato passato un redirectTo e inizia con /, usalo; altrimenti la default della dashboard
+  const destination = redirectTo?.startsWith("/") ? redirectTo : ROLE_HOME[role];
+  redirect(destination);
 }
 
 export async function signOutAction(): Promise<void> {

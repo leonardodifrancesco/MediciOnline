@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label, FieldError } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
-export function LoginForm() {
+export function LoginForm({ redirectTo }: { redirectTo?: string }) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -22,7 +22,7 @@ export function LoginForm() {
   async function onSubmit(values: LoginInput) {
     setServerError(null);
     setIsSubmitting(true);
-    const result = await signInAction(values);
+    const result = await signInAction(values, redirectTo);
     // Se l'azione ha successo esegue un redirect lato server e questa riga
     // non viene mai raggiunta; arriviamo qui solo in caso di errore.
     setIsSubmitting(false);

@@ -10,9 +10,9 @@ const ERROR_MESSAGES: Record<string, string> = {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; redirectTo?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, redirectTo } = await searchParams;
 
   return (
     <Card className="mx-auto max-w-md">
@@ -30,7 +30,7 @@ export default async function LoginPage({
         </p>
       )}
 
-      <LoginForm />
+      <LoginForm redirectTo={redirectTo} />
 
       <div className="mt-6 space-y-2 text-center text-sm text-ink-soft">
         <p>

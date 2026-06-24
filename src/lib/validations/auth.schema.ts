@@ -98,3 +98,13 @@ export const newPasswordSchema = z
   });
 
 export type NewPasswordInput = z.infer<typeof newPasswordSchema>;
+
+export const createAppointmentSchema = z.object({
+  doctorId: z.string().uuid(),
+  scheduledStart: z.string().datetime(),
+  scheduledEnd: z.string().datetime(),
+  consultationType: z.enum(["in_person", "video", "both"]),
+  patientNotes: z.string().max(500).optional().or(z.literal("")),
+});
+
+export type CreateAppointmentInput = z.infer<typeof createAppointmentSchema>;
